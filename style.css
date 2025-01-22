@@ -87,6 +87,10 @@ form button:hover {
     right:20px;
 }
 
-.toast{
-    
+.toast {
+    color:#f1f1f1;
+    padding:10px;
+    border:none;
+    font-size:15px;
+    border-radius:5px;
 }

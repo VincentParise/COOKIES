@@ -2,55 +2,99 @@
 // 2. Création Cookies
 // 3. Affichage Cookies dans info-txt si appui sur le bouton Afficher
 
-const form = document.querySelector("form");
-const inputNames = document.querySelectorAll("input");
+const cookieForm = document.querySelector("form");
+const inputs = document.querySelectorAll("input");
 const infoTxt = document.querySelector('.info-txt');
 const display = document.querySelector('.display-cookie-btn');
 let nameCookies=[];
 
-form.addEventListener("submit",(e)=>{
+cookieForm.addEventListener("submit",(e)=>{
     e.preventDefault();
     //Recupération des inputs :
-    //console.log(inputNames[0].value + ' '+inputNames[1].value);
+    // On créé un objet Cookie :
+    const newCookie ={};
 
-    createCookie(inputNames[0].value,inputNames[1].value,60);
+    inputs.forEach(input =>{
+        const nameAttribute = input.getAttribute("name");
+        // console.log(nameAttribute)
+        // console.log(input.value)
+        // On rempli l'objet
+        newCookie[nameAttribute]=input.value;
+        //console.log(newCookie);
+    })
+    // création de l'argument expires
+    newCookie.expires = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+    
+    createCookie(newCookie);
 
     // remise à 0 des inputs pour nouvelles entrées.
-    // inputNames[0].value='';    
-    // inputNames[1].value=null;
-    form.reset();
+     cookieForm.reset();
 });
 
 // Function Creation Cookie
-function createCookie(name, value, days) {
-    nameCookies.push(name);
-    let expire = '';
-    if (days){
-        const date = new Date();
-        date.setTime(date.getTime()+days);
-        expire=`expires=${date.toUTCString()}`
-        //console.log(expire)
+function createCookie(newCookie) {
+    // Verification si le cookie existe.
+    if (doesCookieExiste(newCookie.name)) {
+        createToast({name: newCookie.name, state: "modifié",color: "red"});
+    } else {
+        createToast({name: newCookie.name, state: "créé",color: "green"});
     }
-    document.cookie=`${name}=${encodeURIComponent(value)}; ${expire}; path=/; secure`;
-    //console.log(`${name}=${encodeURIComponent(value)}; ${expire}; path=/; secure`)
-    //console.log(nameCookies);
+
+    // Création du cookie avec document.cookie.
+    document.cookie=`${encodeURIComponent(newCookie.name)}=${encodeURIComponent(newCookie.value)}; ${newCookie.expires.toUTCString()}; path=/; secure`;
+ 
 }
 
-display.addEventListener('click',(e)=>{
-   
-    console.log(getCookie(inputNames[0].value));
+// Fonction de vérification cookie Existe en fonction du nom dans l'objet
+function doesCookieExiste(name){
+    // Decomposition de tous les cookies présent: on récupère le nom uniquement des cookies dans un tableau
+    // Utilisation regex pour enlever les espaces, split pour créer un tableau en enlevant ;
+    // et map pour créer un tableau avec uniquement la 1ere valeur
+    const cookies = document.cookie.replace(/\s/g, "").split(";").map(cookie => cookie.split("=")[0]);
+    const presence = cookies.find(cookie => cookie === encodeURIComponent(name))
     
+    return presence;
+}
+
+const toastsContainer=document.querySelector(".toasts-container");
+
+// GESTION CREATION PETIT TOAST EN BAS A DROITE
+function createToast({name, state, color}){
+    const toastInfo = document.createElement('p');
+    toastInfo.className='toast';
+
+    toastInfo.textContent=`Cookie : ${name} ${state}`;
+    toastInfo.style.backgroundColor=color;
+
+    toastsContainer.appendChild(toastInfo);
+
+    setTimeout(()=>{
+        toastInfo.remove();
+    },1500)
+}
+
+// GESTION AFFICHAGE
+// -----------------
+const displayCookieBtn = document.querySelector('.display-cookie-btn');
+
+// On ecoute l'evenement Click sur le bouton Afficher
+// On récupère les cookies sous format tableau
+displayCookieBtn.addEventListener('click',(e)=>{
+    const cookies = document.cookie.replace(/\s/g, "").split(";").map(cookie => cookie.split("="));
+    
+    //console.log(cookies[0][1]);
+    // Creation des éléments Li pour affichage
+    createElementLi(cookies);
 
 });
 
-function getCookie(name) {
-    const cookies = document.cookie.split('; ');
-    for (let i = 0; i < cookies.length; i++) {
-        const [key, value] = cookies[i].split('=');
-        if (key === name) {
-            return decodeURIComponent(value);
-        }
-    }
-    return null;
+// Creation de l'affichage des Cookies
+// On séléectionne l'élément du DOM
+const cookiesList = document.querySelector(".cookies-list");
+
+function createElementLi(cookies) {
+
+
 
 }
+
