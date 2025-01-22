@@ -11,83 +11,82 @@ body {
   background: linear-gradient(to right, #ffefba, #ffffff);
   padding: clamp(20px, 5vw, 50px) 20px 10px;
 }
+
 h1 {
-  font-size: clamp(20px, 5vw, 50px);
+  font-size: 45px;
   text-align: center;
-  font-family: Roboto, sans-serif;
-  margin: 20px 0 10px;
-  font-weight: 100;
+   margin: 20px 0 10px;
+  font-weight: 300;
 }
 
 h1 span {
   font-weight: 800;
 }
 
-form {
-  max-width: 850px;
-  margin: 0 auto 30px;
-  display: flex;
-  justify-content: center;
+.container {
+  max-width: 600px;
+  margin: 0 auto ;
 }
 
-.input-container {
-  margin: 20px auto;
+.input-group:nth-child(2) {
+  margin-top: 25px;
 }
 
-.input-group {
-  margin-bottom: 25px;
-}
-
-label {
+.container label {
   display: block;
   margin-bottom: 10px;
+  font-weight:600px;
   font-size: 18px;
 }
 
-.input-group input {
-  min-width: 400px;
-  font-size: 15px;
-  padding: 15px;
-  border: none;
-  border-bottom: 1px solid #333;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-}
-
-.input-group input:focus {
-  border: none;
-  outline: 1px solid #222222be;
-}
-
-.button-group {
-    margin:20px auto;
-    display: flex;
-    justify-content: center;
-}
-
-.button-group button{
-    font-size: 15px;
-    min-width: 100px;
-    margin: 10px auto;
+.container input {
     display: block;
-    padding: 10px;
-    border: none;
-    font-weight: 700px;
-    border-radius: 5px;
-    color: #333;
-    cursor: pointer;
-    background: #09b657;
+    width: 100%;
+    font-size:18px;
+    padding:12px;
+    border:none;
+    border-radius:5px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
-    
+  }
+  .container input:focus {
+    outline: 1px solid #222222be;
   }
   
+.btns-container {
+    display:flex;
+    justify-content:center;
+    margin-top: 45px;
+}
+
+form button {
+    font-size:15px;
+    min-width:100px;
+    color: #f1f1f1;
+    padding:10px;
+    margin-left:15px;
+    background: #2bc41d;
+    border:none;
+    cursor: pointer;
+    border-radius:5px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.5);
+}
+
 form button:hover {
-    background: #09b657;
-    background: #056314;
-  }
+    background:#1ca70f;
+}
 
-button .creer {
-    margin-right: 20px;
-    color:white;
+.info-txt{
+    font-size:18px;
+    margin-top:20px;
+    text-align:center;
+}
 
+.toasts-container {
+    position:fixed;
+    bottom:20px;
+    right:20px;
+}
+
+.toast{
+    
 }
