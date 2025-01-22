@@ -93,8 +93,24 @@ displayCookieBtn.addEventListener('click',(e)=>{
 const cookiesList = document.querySelector(".cookies-list");
 
 function createElementLi(cookies) {
-
-
-
+    // On itère sur chaque élément du tableau cookies
+    cookies.forEach( cookie =>{
+        const cookieLi = document.createElement('li');
+        cookieLi.className="cookie-li";
+        const name = decodeURIComponent(cookie[0]);
+        cookieLi.innerHTML = `
+                <p>Nom : ${name}</p></br>
+                <p>Valeur : ${cookie[1]}</p></br>
+                <button>X</button>
+        `;
+        // On séléctionne le bouton créer juste en haut au clic de l'évenement
+        cookieLi.querySelector("button").addEventListener('click',(e)=>{
+            createToast({name: name, state: "supprimé",color: "blue"});
+            document.cookie =`${cookie[0]}=; expires=${new Date(0)}`;
+            e.target.parentElement.remove();
+        })
+        cookiesList.appendChild(cookieLi);
+    });
+ 
 }
 
