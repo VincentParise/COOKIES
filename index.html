@@ -13,7 +13,37 @@
     />
   </head>
   <body>
-    
+    <h1>Création de <span>Cookies</span></h1>
+    <div class="conatainer">
+    <form>
+      <div class="input-container">
+        <div class="input-group">
+          <label for="name">Son nom</label>
+          <input type="text" 
+          placeholder="son nom"
+          id="name"
+          autocomplete="off"
+          required>
+        </div>
+        <div class="input-group">
+          <label for="value">Sa valeur</label>
+          <input type="number" 
+          placeholder="Valeur"
+          id="value"
+          autocomplete="off"
+          required>
+        </div>
+        <div class="btns-container">
+          <button type="submit" class="create-cookie-btn">Créer</button>
+          <button type="button" class="display-cookie-btn">Afficher</button>
+        </div>
+      </form>
+      <p class="info-txt"></p>
+    <ul class="cookies-list">
+
+    </ul>   
+  </div>
+  <div class="toasts-container"></div>
     <script src="app.js"></script>
   </body>
 </html>
